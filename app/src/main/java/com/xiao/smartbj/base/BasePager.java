@@ -6,6 +6,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.xiao.smartbj.MainActivity;
 import com.xiao.smartbj.R;
 
 
@@ -33,10 +35,26 @@ public class BasePager {
         tv_title1 = (TextView) view.findViewById(R.id.tv_title);
         btn_menu = (ImageButton) view.findViewById(R.id.btn_menu);
         fl_content = (FrameLayout) view.findViewById(R.id.fl_content);
+
+        btn_menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggle();
+            }
+        });
         return view;
     }
     //初始化数据
     public void initData(){
 
+    }
+
+    /**
+     * 打开或关闭侧边栏
+     */
+    private void toggle() {
+        MainActivity mainUI = (MainActivity) mActivity;
+        SlidingMenu slidingMenu = mainUI.getSlidingMenu();
+        slidingMenu.toggle();//如果当前状态是开，调用后就关，反之亦然
     }
 }

@@ -15,6 +15,7 @@ import com.xiao.smartbj.fragment.LeftMenuFragment;
  */
 public class MainActivity extends SlidingFragmentActivity {
 
+
     private static final String TAG_LEFT_MENU = "TAG_LEFT_MENU";
     private static final String TAG_CONTENT = "TAG_CONTENT";
 
@@ -40,5 +41,24 @@ public class MainActivity extends SlidingFragmentActivity {
         transaction.replace(R.id.fl_left_menu,new LeftMenuFragment(), TAG_LEFT_MENU);
         transaction.replace(R.id.fl_main,new ContentFragment(),TAG_CONTENT);
         transaction.commit();
+    }
+
+    /**
+     * 获取侧边栏fragment对象
+     * @return
+     */
+    public LeftMenuFragment getLeftMenuFragment(){
+        FragmentManager fm = getSupportFragmentManager();
+        LeftMenuFragment fragment = (LeftMenuFragment) fm.findFragmentByTag(TAG_LEFT_MENU);
+        return fragment;
+    }
+    /**
+     * 获取主页fragment对象
+     * @return
+     */
+    public ContentFragment getContentFragment(){
+        FragmentManager fm = getSupportFragmentManager();
+        ContentFragment fragment = (ContentFragment) fm.findFragmentByTag(TAG_CONTENT);
+        return fragment;
     }
 }
