@@ -57,7 +57,6 @@ public class ContentFragment extends BaseFragment {
                 switch (i) {
                     case R.id.rb_home:
                         vp_content.setCurrentItem(0, false);
-
                         break;
                     case R.id.rb_news:
                         vp_content.setCurrentItem(1, false);

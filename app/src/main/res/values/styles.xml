@@ -26,5 +26,24 @@
         <item name="android:textColor">@color/txt_tab_selector</item>
         android:button="@null"
     </style>-->
+    <style name="Theme.PageIndicatorDefaults1" parent="android:Theme">
+        <item name="vpiIconPageIndicatorStyle">@style/Widget.IconPageIndicator</item>
+        <item name="vpiTabPageIndicatorStyle">@style/Widget.TabPageIndicator1</item>
+    </style>
+    <style name="Widget.TabPageIndicator1" parent="Widget">
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/vpi_tab_indicator1</item>
+        <item name="android:paddingLeft">22dip</item>
+        <item name="android:paddingRight">22dip</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.TabPageIndicator1</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:maxLines">1</item>
+    </style>
 
+    <style name="TextAppearance.TabPageIndicator1" parent="Widget">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/vpi_dark_theme1</item>
+    </style>
 </resources>

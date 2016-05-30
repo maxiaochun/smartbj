@@ -38,7 +38,7 @@ import cz.msebera.android.httpclient.Header;
 public class NewsCenterPager extends BasePager {
 
 
-    private ArrayList<BaseMenuDetailPager> mMenuDetailPagers;
+    private ArrayList<BaseMenuDetailPager> mMenuDetailPagers;//菜单详情页集合
     private NewsMenu mNewsData;
 
     public NewsCenterPager(Activity activity) {
@@ -126,7 +126,8 @@ public class NewsCenterPager extends BasePager {
 
         //初始化4个菜单详情页
         mMenuDetailPagers = new ArrayList<>();
-        mMenuDetailPagers.add(new NewsMenuDetailPager(mActivity));
+        mMenuDetailPagers.add(new NewsMenuDetailPager(mActivity,mNewsData.
+                data.get(0).children));
         mMenuDetailPagers.add(new TopicMenuDetailPager(mActivity));
         mMenuDetailPagers.add(new PhotoMenuDetailPager(mActivity));
         mMenuDetailPagers.add(new InteractMenuDetailPager(mActivity));
