@@ -25,8 +25,8 @@ dependencies {
     compile 'org.xutils:xutils:3.3.34'
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile project(':SlidingMenuLibrary')
+    compile project(':viewPagerIndicatorLibrary')
     compile files('libs/gson-2.3.1.jar')
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'com.jiechic.library:xUtils:2.6.14'
-    compile 'com.mcxiaoke.viewpagerindicator:library:2.4.1'
 }

@@ -1,12 +1,9 @@
 package com.xiao.smartbj.base.impl;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
@@ -128,6 +125,7 @@ public class NewsCenterPager extends BasePager {
         mMenuDetailPagers = new ArrayList<>();
         mMenuDetailPagers.add(new NewsMenuDetailPager(mActivity,mNewsData.
                 data.get(0).children));
+        Log.e(TAG, "processData: "+mNewsData.data.get(0).children );
         mMenuDetailPagers.add(new TopicMenuDetailPager(mActivity));
         mMenuDetailPagers.add(new PhotoMenuDetailPager(mActivity));
         mMenuDetailPagers.add(new InteractMenuDetailPager(mActivity));

@@ -1,6 +1,5 @@
 package com.xiao.smartbj.fragment;
 
-import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -9,12 +8,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-import com.lidroid.xutils.view.annotation.ViewInject;
 import com.xiao.smartbj.MainActivity;
 import com.xiao.smartbj.R;
 import com.xiao.smartbj.base.impl.NewsCenterPager;
 import com.xiao.smartbj.domain.NewsMenu;
-import com.lidroid.xutils.ViewUtils;
+
 import java.util.ArrayList;
 
 

@@ -21,7 +21,7 @@
         <activity android:name=".GuideActivity" />
         <activity
             android:name=".MainActivity"
-            android:theme="@style/Theme.PageIndicatorDefaults1" />
+            android:theme="@style/Theme.PageIndicatorDefaults" />
         <!--newsdetailpager indicator格式需设置-->
 
     </application>
