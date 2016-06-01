@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.lidroid.xutils.BitmapUtils;
@@ -61,6 +62,9 @@ public class TabDetailPager extends BaseMenuDetailPager {
 
     @ViewInject(R.id.lv_list)
     private PullToRefreshListView lv_list;
+    private String mMoreUrl;//下一页的数据链接
+    private Object moreDataFromServer;
+
     public TabDetailPager(Activity activity, NewsMenu.NewsTabData newsTabData) {
         super(activity);
         mTabData = newsTabData;
@@ -78,6 +82,27 @@ public class TabDetailPager extends BaseMenuDetailPager {
                 null);
         ViewUtils.inject(this, mHeaderView);// 此处必须将头布局也注入
         lv_list.addHeaderView(mHeaderView);
+
+        //5.前端界面设置回调
+        lv_list.setOnRefreshListener(new PullToRefreshListView.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //刷新数据
+                getDataFromServer();
+            }
+
+            @Override
+            public void onLoadMore() {
+                //判断是否有下一页数据
+                if (mMoreUrl != null) {
+                    //有下一页
+                    getMoreDataFromServer();
+                } else {
+                    //没有下一页
+                    Toast.makeText(mActivity, "没有更多数据了", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         return view;
     }
@@ -107,11 +132,17 @@ public class TabDetailPager extends BaseMenuDetailPager {
                 processData(result);
                 Log.e(TAG, "murl: "+mUrl);
                 CacheUtils.setCache(mUrl,result,mActivity);
+
+                //刷新结束，收起下拉刷新控件
+                lv_list.onRefreshComplete(true);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
+
+                //刷新结束，收起下拉刷新控件
+                lv_list.onRefreshComplete(false);
             }
         });
     }
@@ -119,6 +150,15 @@ public class TabDetailPager extends BaseMenuDetailPager {
         Gson gson = new Gson();
         NewsTabBean newsTabBean = gson.fromJson(result, NewsTabBean.class);
 
+       String moreUrl =  newsTabBean.data.more;
+        if (!TextUtils.isEmpty(moreUrl)){
+            mMoreUrl = GlobalConstants.SERVER_URL + moreUrl;
+        }else {
+            mMoreUrl = null;
+        }
+
+
+        //头条新闻填充数据
         mTopNews = newsTabBean.data.topnews;
         Log.e(TAG, "头条: "+mTopNews);
         //头条新闻填充数据
@@ -156,6 +196,39 @@ public class TabDetailPager extends BaseMenuDetailPager {
             lv_list.setAdapter(mNewsAdapter);
         }
 
+    }
+
+    /**
+     * 加载下一页数据
+     * @return
+     */
+    protected void getMoreDataFromServer() {
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        client.get(mUrl,new JsonHttpResponseHandler(){
+            @Override
+            public void onStart() {
+                super.onStart();
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                String result = response.toString();
+                processData(result);
+
+                //刷新结束，收起下拉刷新控件
+                lv_list.onRefreshComplete(true);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+
+                //刷新结束，收起下拉刷新控件
+                lv_list.onRefreshComplete(false);
+            }
+        });
     }
 
     //头条新闻数据适配器
